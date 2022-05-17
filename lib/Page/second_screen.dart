@@ -2,10 +2,10 @@
 // MI-2F
 // 2031710139
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_flutter/login_page.dart';
-import 'package:firebase_flutter/sign_in.dart';
+import 'package:firebase_flutter/Page/login_page.dart';
+import 'package:firebase_flutter/Services/my_firebase.dart';
+import 'package:firebase_flutter/Widget/button.dart';
 
 class SecondScreen extends StatelessWidget {
   const SecondScreen({Key key, this.email}) : super(key: key);
@@ -44,25 +44,19 @@ class SecondScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 40),
-              RaisedButton(
-                onPressed: () {
-                  signOutGoogle();
+              Button(
+                title: 'Sign Out',
+                textColor: Colors.white,
+                backgroundColor: Colors.purple,
+                borderColor: Colors.transparent,
+                radius: 40,
+                action: () {
+                  MyFirebase.signOut();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return LoginPage();
+                    return const LoginPage();
                   }), ModalRoute.withName('/'));
                 },
-                color: Colors.deepPurple,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Sign Out',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
               )
             ],
           ),

@@ -3,11 +3,16 @@
 // 2031710139
 
 import 'package:flutter/material.dart';
-import 'package:firebase_flutter/login_page.dart';
-import 'package:firebase_flutter/sign_in.dart';
+import 'package:firebase_flutter/Page/login_page.dart';
+import 'package:firebase_flutter/Services/my_firebase.dart';
+import 'package:firebase_flutter/Widget/button.dart';
 
 class FirstScreen extends StatelessWidget {
-  const FirstScreen({Key key}) : super(key: key);
+  const FirstScreen({Key key, this.imageUrl, this.name, this.email})
+      : super(key: key);
+  final String imageUrl;
+  final String name;
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +71,19 @@ class FirstScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 40),
-              RaisedButton(
-                onPressed: () {
-                  signOutGoogle();
+              Button(
+                title: 'Sign Out',
+                textColor: Colors.white,
+                backgroundColor: Colors.purple,
+                borderColor: Colors.transparent,
+                radius: 40,
+                action: () {
+                  MyFirebase.signOutGoogle();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return LoginPage();
+                    return const LoginPage();
                   }), ModalRoute.withName('/'));
                 },
-                color: Colors.deepPurple,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Sign Out',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
               )
             ],
           ),

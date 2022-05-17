@@ -8,11 +8,8 @@ import 'package:firebase_flutter/login_page.dart';
 import 'package:firebase_flutter/sign_in.dart';
 
 class SecondScreen extends StatelessWidget {
-  // final FirebaseAuth user;
-  const SecondScreen(
-      // this.user,
-      {Key key})
-      : super(key: key);
+  const SecondScreen({Key key, this.email}) : super(key: key);
+  final String email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

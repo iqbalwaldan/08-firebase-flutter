@@ -50,30 +50,32 @@ Future<void> signOutGoogle() async {
   print("User Signed Out");
 }
 
-class AuthSign {
-  static final FirebaseAuth _auth1 = FirebaseAuth.instance;
-
-  static Future<User> signUp(String email, String password) async {
-    try {
-      Firebase.initializeApp();
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      User firebaseUser = result.user;
-      User currentUser = _auth.currentUser;
-      assert(firebaseUser.uid == currentUser?.uid);
-      email = firebaseUser.uid;
-      return firebaseUser;
-    } catch (e) {
-      print(e.toString() + "bala bala");
-      return null;
-    }
+//SIGN UP METHOD
+Future signUp(String email, String password) async {
+  try {
+    await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return null;
+  } on FirebaseAuthException catch (e) {
+    return e.message;
   }
+}
 
-  static Future<User> signIn(String email, String password) async {
-    try {} catch (e) {}
+//SIGN IN METHOD
+Future signIn(String email, String password) async {
+  try {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    return null;
+  } on FirebaseAuthException catch (e) {
+    return e.message;
   }
+}
 
-  static Future<void> signOut() async {
-    _auth1.signOut();
-  }
+//SIGN OUT METHOD
+Future signOut() async {
+  await _auth.signOut();
+
+  print('signout');
 }
